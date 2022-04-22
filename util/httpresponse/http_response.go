@@ -13,7 +13,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/NextSmartShip/wms-backend/common/util/log"
+	"github.com/NextSmartShip/common/util/log"
 	"github.com/go-chi/render"
 	"github.com/sirupsen/logrus"
 )

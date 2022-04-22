@@ -10,7 +10,7 @@
 package middleware
 
 import (
-	internal "github.com/NextSmartShip/wms-backend/common"
+	internal "github.com/NextSmartShip/common"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
 )

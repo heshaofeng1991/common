@@ -12,8 +12,8 @@ package sentry
 import (
 	"time"
 
-	internal "github.com/NextSmartShip/wms-backend/common"
-	"github.com/NextSmartShip/wms-backend/common/util/env"
+	internal "github.com/NextSmartShip/common"
+	"github.com/NextSmartShip/common/util/env"
 	"github.com/getsentry/sentry-go"
 )
 

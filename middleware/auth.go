@@ -12,9 +12,9 @@ package middleware
 import (
 	"net/http"
 
-	jwtAuth "github.com/NextSmartShip/wms-backend/common/util/auth"
-	"github.com/NextSmartShip/wms-backend/common/util/env"
-	httperr "github.com/NextSmartShip/wms-backend/common/util/httpresponse"
+	jwtAuth "github.com/NextSmartShip/common/util/auth"
+	"github.com/NextSmartShip/common/util/env"
+	httperr "github.com/NextSmartShip/common/util/httpresponse"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/dgrijalva/jwt-go/request"
 	"github.com/go-chi/chi/v5"

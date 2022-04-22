@@ -15,7 +15,7 @@ import (
 	"os"
 	"time"
 
-	internal "github.com/NextSmartShip/wms-backend/common"
+	internal "github.com/NextSmartShip/common"
 	"github.com/go-chi/chi/v5/middleware"
 	log "github.com/sirupsen/logrus"
 )

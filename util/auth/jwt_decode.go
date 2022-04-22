@@ -12,7 +12,7 @@ package auth
 import (
 	"net/http"
 
-	internal "github.com/NextSmartShip/wms-backend/common"
+	internal "github.com/NextSmartShip/common"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/pkg/errors"
 )

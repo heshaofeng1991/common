@@ -3,7 +3,7 @@ package log
 import (
 	"runtime"
 
-	internal "github.com/NextSmartShip/wms-backend/common"
+	internal "github.com/NextSmartShip/common"
 	"github.com/getsentry/sentry-go"
 	"github.com/sirupsen/logrus"
 )

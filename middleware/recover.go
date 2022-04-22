@@ -14,9 +14,9 @@ import (
 	"net/http"
 	"time"
 
-	internal "github.com/NextSmartShip/wms-backend/common"
-	"github.com/NextSmartShip/wms-backend/common/util/env"
-	"github.com/NextSmartShip/wms-backend/common/util/log"
+	internal "github.com/NextSmartShip/common"
+	"github.com/NextSmartShip/common/util/env"
+	"github.com/NextSmartShip/common/util/log"
 	"github.com/getsentry/sentry-go"
 	"github.com/go-chi/chi/v5"
 	"github.com/sirupsen/logrus"

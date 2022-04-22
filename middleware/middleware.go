@@ -10,7 +10,7 @@
 package middleware
 
 import (
-	"github.com/NextSmartShip/wms-backend/common/util/log"
+	"github.com/NextSmartShip/common/util/log"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/sirupsen/logrus"

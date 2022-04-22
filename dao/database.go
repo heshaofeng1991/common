@@ -3,13 +3,13 @@ package dao
 
 import (
 	"database/sql"
-
+	
 	entsql "entgo.io/ent/dialect/sql"
+	"github.com/NextSmartShip/common/util/env"
 	ent "github.com/NextSmartShip/entgo/ent/gen"
-	"github.com/NextSmartShip/wms-backend/common/util/env"
 	"github.com/pkg/errors" //nolint:gci
 	log "github.com/sirupsen/logrus"
-
+	
 	// import mysql driver.
 	_ "github.com/go-sql-driver/mysql"
 )
