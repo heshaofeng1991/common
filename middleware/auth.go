@@ -11,6 +11,7 @@ package middleware
 
 import (
 	"net/http"
+	"strings"
 
 	jwtAuth "github.com/NextSmartShip/common/util/auth"
 	"github.com/NextSmartShip/common/util/env"
@@ -27,7 +28,7 @@ func addAuthMiddleware(router *chi.Mux) {
 
 func auth(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(rsp http.ResponseWriter, req *http.Request) {
-		if req.URL.Path != "/health-check" {
+		if strings.Contains(req.URL.Path, "/health-check") {
 			var claims jwtAuth.MyClaims
 
 			jwtSecret := env.JwtSecret
