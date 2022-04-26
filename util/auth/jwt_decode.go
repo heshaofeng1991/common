@@ -18,8 +18,8 @@ import (
 )
 
 // ParseToken 解析token.
-func ParseToken(tokenString, secret string) (*MyClaims, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &MyClaims{}, func(token *jwt.Token) (interface{}, error) {
+func ParseToken(tokenString, secret string) (*WMSClaims, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &WMSClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, internal.NewError("invalid signature method", http.StatusUnauthorized)
 		}
@@ -31,7 +31,7 @@ func ParseToken(tokenString, secret string) (*MyClaims, error) {
 		return nil, internal.NewError("parse token failed", http.StatusUnauthorized)
 	}
 
-	if claims, ok := token.Claims.(*MyClaims); ok && token.Valid {
+	if claims, ok := token.Claims.(*WMSClaims); ok && token.Valid {
 		return claims, nil
 	}
 
