@@ -29,7 +29,7 @@ func addAuthMiddleware(router *chi.Mux) {
 func auth(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(rsp http.ResponseWriter, req *http.Request) {
 		if !strings.Contains(req.URL.Path, "/health-check") {
-			var claims jwtAuth.MyClaims
+			var claims jwtAuth.WMSClaims
 
 			jwtSecret := env.JwtSecret
 
