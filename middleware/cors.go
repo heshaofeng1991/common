@@ -18,8 +18,7 @@ import (
 func addCorsMiddleware(router *chi.Mux) {
 	corsMiddleware := cors.New(cors.Options{
 		AllowedOrigins: []string{
-			"https://*",
-			"http://*",
+			"*",
 		},
 		AllowedMethods: []string{
 			"GET",
