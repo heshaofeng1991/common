@@ -37,3 +37,24 @@ func ParseToken(tokenString, secret string) (*WMSClaims, error) {
 
 	return nil, errors.Wrap(err, "")
 }
+
+// ParseOMSToken 解析oms token.
+func ParseOMSToken(tokenString, secret string) (*OMSClaims, error) {
+  token, err := jwt.ParseWithClaims(tokenString, &OMSClaims{}, func(token *jwt.Token) (interface{}, error) {
+    if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+      return nil, internal.NewError("invalid signature method", http.StatusUnauthorized)
+    }
+
+    return []byte(secret), nil
+  })
+
+  if token == nil {
+    return nil, internal.NewError("parse token failed", http.StatusUnauthorized)
+  }
+
+  if claims, ok := token.Claims.(*OMSClaims); ok && token.Valid {
+    return claims, nil
+  }
+
+  return nil, errors.Wrap(err, "")
+}
