@@ -12,8 +12,7 @@ package httpresponse
 import (
 	"errors"
 	"net/http"
-
-	"github.com/NextSmartShip/common/util/log"
+	
 	"github.com/go-chi/render"
 	"github.com/sirupsen/logrus"
 )
@@ -33,7 +32,7 @@ func BadRequest(slug string, err error, w http.ResponseWriter, r *http.Request) 
 func httpRespondWithError(err error, slug string, w http.ResponseWriter, r *http.Request, logMSg string, status int) {
 	w.Header().Set("Content-Type", "application/json")
 
-	log.GetLogEntry(r).WithError(err).WithField("error-slug", slug).Warn(logMSg)
+	// log.GetLogEntry(r).WithError(err).WithField("error-slug", slug).Warn(logMSg)
 	resp := Error{slug, status}
 
 	if err := render.Render(w, r, resp); err != nil {
