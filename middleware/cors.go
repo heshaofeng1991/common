@@ -13,14 +13,10 @@ import (
 	internal "github.com/NextSmartShip/common"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
-	"net/http"
 )
 
 func addCorsMiddleware(router *chi.Mux) {
 	corsMiddleware := cors.New(cors.Options{
-		AllowedOrigins: []string{
-			"*",
-		},
 		AllowedMethods: []string{
 			"GET",
 			"POST",
@@ -40,18 +36,7 @@ func addCorsMiddleware(router *chi.Mux) {
 		},
 		AllowCredentials: true,
 		MaxAge:           internal.CorsMaxAge,
-		AllowOriginFunc: AllowOriginFunc,
 	})
 
 	router.Use(corsMiddleware.Handler)
-}
-
-func AllowOriginFunc(r *http.Request, origin string) bool {
-	origin = r.Header.Get("Origin")
-	
-	if origin == "*" {
-		return true
-	}
-	
-	return false
 }
