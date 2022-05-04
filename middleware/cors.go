@@ -38,7 +38,7 @@ func addCorsMiddleware(router *chi.Mux) {
 		},
 		AllowCredentials: true,
 		MaxAge:           internal.CorsMaxAge,
-		AllowOriginFunc: AllowOriginFunc,
+		// AllowOriginFunc:  AllowOriginFunc,
 	})
 
 	router.Use(corsMiddleware.Handler)
@@ -46,10 +46,10 @@ func addCorsMiddleware(router *chi.Mux) {
 
 func AllowOriginFunc(r *http.Request, origin string) bool {
 	origin = r.Header.Get("Origin")
-	
+
 	if origin == "*" {
 		return true
 	}
-	
+
 	return false
 }
