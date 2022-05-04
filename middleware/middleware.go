@@ -24,7 +24,6 @@ func SetMiddlewares(router *chi.Mux) {
 
 	addCorsMiddleware(router)
 	addCatchExceptionMiddleware(router)
-	addAuthMiddleware(router)
 
 	router.Use(middleware.NoCache)
 }
