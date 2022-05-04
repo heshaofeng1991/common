@@ -10,46 +10,27 @@
 package middleware
 
 import (
+	"net/http"
+
 	internal "github.com/NextSmartShip/common"
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/cors"
-	"net/http"
+	"github.com/rs/cors"
 )
 
 func addCorsMiddleware(router *chi.Mux) {
-	corsMiddleware := cors.New(cors.Options{
-		AllowedMethods: []string{
-			"GET",
-			"POST",
-			"OPTIONS",
-			"PUT",
-			"DELETE",
-			"PATCH",
+	corsMiddleware := cors.New(
+		cors.Options{
+			AllowedMethods:         []string{"GET", "POST", "OPTIONS", "PUT", "DELETE"},
+			AllowCredentials:       true,
+			MaxAge:                 internal.CorsMaxAge,
+			AllowOriginRequestFunc: AllowOriginRequestFunc,
+			OptionsSuccessStatus:   http.StatusNoContent,
 		},
-		AllowedHeaders: []string{
-			"X-Requested-With",
-			"Content-Type",
-			"Accept",
-			"Origin",
-			"Authorization",
-			"X-Api-Version",
-			"x-nss-tenant-id",
-			"Access-Control-Allow-Origin",
-		},
-		AllowCredentials: true,
-		MaxAge:           internal.CorsMaxAge,
-		// AllowOriginFunc:  AllowOriginFunc,
-	})
+	)
 
 	router.Use(corsMiddleware.Handler)
 }
 
-func AllowOriginFunc(r *http.Request, origin string) bool {
-	origin = r.Header.Get("Origin")
-
-	if origin == "*" {
-		return true
-	}
-
-	return false
+func AllowOriginRequestFunc(r *http.Request, origin string) bool {
+	return origin == r.Header.Get("Origin")
 }
