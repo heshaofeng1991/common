@@ -18,18 +18,29 @@ import (
 	internal "github.com/NextSmartShip/common"
 	"github.com/go-chi/chi/v5/middleware"
 	log "github.com/sirupsen/logrus"
+	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 )
 
 // InitLog 初始化 loggers.
 func InitLog() {
 	// 设置日志格式为json格式.
-	log.SetFormatter(&log.JSONFormatter{
-		TimestampFormat:  "2006-01-02 15:04:05",
-		PrettyPrint:      true,
-		DisableTimestamp: false,
-		DataKey:          "",
-		FieldMap:         nil,
-	})
+	log.SetFormatter(
+		&log.JSONFormatter{
+			TimestampFormat:  "2006-01-02 15:04:05",
+			PrettyPrint:      true,
+			DisableTimestamp: false,
+			DataKey:          "",
+			FieldMap:         nil,
+		},
+	)
+
+	if os.Getenv("LOG_FORMAT") == "text" {
+		log.SetFormatter(
+			&prefixed.TextFormatter{
+				ForceFormatting: true,
+			},
+		)
+	}
 
 	// 设置只记录日志级别为trace及其以上的日志.
 	log.SetLevel(log.TraceLevel)
@@ -74,19 +85,23 @@ type StructuredLoggerEntry struct {
 }
 
 func (l *StructuredLoggerEntry) Write(status, bytes int, header http.Header, elapsed time.Duration, extra interface{}) {
-	l.Logger = l.Logger.WithFields(log.Fields{
-		"resp_status": status, "resp_bytes_length": bytes,
-		"resp_elapsed": elapsed.Round(time.Millisecond / internal.EntryTimeLength).String(),
-	})
+	l.Logger = l.Logger.WithFields(
+		log.Fields{
+			"resp_status": status, "resp_bytes_length": bytes,
+			"resp_elapsed": elapsed.Round(time.Millisecond / internal.EntryTimeLength).String(),
+		},
+	)
 
 	l.Logger.Info("Request completed	")
 }
 
 func (l *StructuredLoggerEntry) Panic(v interface{}, stack []byte) {
-	l.Logger = l.Logger.WithFields(log.Fields{
-		"stack": string(stack),
-		"panic": fmt.Sprintf("%+v", v),
-	})
+	l.Logger = l.Logger.WithFields(
+		log.Fields{
+			"stack": string(stack),
+			"panic": fmt.Sprintf("%+v", v),
+		},
+	)
 }
 
 func GetLogEntry(r *http.Request) log.FieldLogger {
