@@ -21,6 +21,7 @@ func addCorsMiddleware(router *chi.Mux) {
 	corsMiddleware := cors.New(
 		cors.Options{
 			AllowedMethods:         []string{"GET", "POST", "OPTIONS", "PUT", "DELETE"},
+			AllowedHeaders:         []string{"authorization", "content-type", "x-csrf-token", "x-requested-with"},
 			AllowCredentials:       true,
 			MaxAge:                 internal.CorsMaxAge,
 			AllowOriginRequestFunc: AllowOriginRequestFunc,
