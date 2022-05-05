@@ -2,14 +2,15 @@
 package dao
 
 import (
+	"context"
 	"database/sql"
-	
+
 	entsql "entgo.io/ent/dialect/sql"
 	"github.com/NextSmartShip/common/util/env"
 	ent "github.com/NextSmartShip/entgo/ent/gen"
 	"github.com/pkg/errors" //nolint:gci
 	log "github.com/sirupsen/logrus"
-	
+
 	// import mysql driver.
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -20,17 +21,21 @@ func Open() (entClient *ent.Client, err error) {
 
 	dbConn, err := sql.Open("mysql", mysqlDSN+"?charset=utf8mb4&parseTime=True&loc=UTC")
 	if err != nil {
-		log.WithFields(log.Fields{
-			"err": err,
-		}).Fatalf("failed connecting database")
+		log.WithFields(
+			log.Fields{
+				"err": err,
+			},
+		).Fatalf("failed connecting database")
 
 		return nil, errors.Wrap(err, "")
 	}
 
 	if dbConn.Ping() != nil {
-		log.WithFields(log.Fields{
-			"err": err,
-		}).Fatalf("failed connecting database")
+		log.WithFields(
+			log.Fields{
+				"err": err,
+			},
+		).Fatalf("failed connecting database")
 
 		return nil, errors.Wrap(err, "")
 	}
@@ -46,4 +51,27 @@ func Open() (entClient *ent.Client, err error) {
 	// }
 
 	return entClient, nil
+}
+
+func WithTx(ctx context.Context, client *ent.Client, fn func(tx *ent.Tx) error) error {
+	tx, err := client.Tx(ctx)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if v := recover(); v != nil {
+			tx.Rollback()
+			panic(v)
+		}
+	}()
+	if err := fn(tx); err != nil {
+		if rerr := tx.Rollback(); rerr != nil {
+			err = errors.Wrapf(err, "rolling back transaction: %v", rerr)
+		}
+		return err
+	}
+	if err := tx.Commit(); err != nil {
+		return errors.Wrapf(err, "committing transaction: %v", err)
+	}
+	return nil
 }
