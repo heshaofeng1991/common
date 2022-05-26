@@ -10,10 +10,86 @@
 package env
 
 import (
+	"bufio"
+	"errors"
 	"os"
+	"strings"
 )
 
+var envMap map[string]string
+
+func GetEnvFromFile(key string) (string, bool) {
+	if len(envMap) == 0 {
+		if err := ReadEnvFile(".env"); err != nil {
+			return "", false
+		}
+	}
+
+	if value, ok := envMap[key]; ok && value != "" {
+		return value, true
+	}
+
+	return "", false
+}
+
+func ReadEnvFile(filename string) error {
+	file, err := os.Open(filename)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	envMap = make(map[string]string)
+
+	var lines []string
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	if err = scanner.Err(); err != nil {
+		return err
+	}
+	for _, fullLine := range lines {
+		if !isIgnoredLine(fullLine) {
+			var key, value string
+			key, value, err = parseLine(fullLine)
+			if err != nil {
+				return err
+			}
+			envMap[key] = value
+		}
+	}
+	return nil
+}
+
+func isIgnoredLine(line string) bool {
+	trimmedLine := strings.TrimSpace(line)
+	return len(trimmedLine) == 0 || strings.HasPrefix(trimmedLine, "#")
+}
+
+func parseLine(line string) (key string, value string, err error) {
+	if len(line) == 0 {
+		err = errors.New("zero length string")
+		return
+	}
+
+	splitString := strings.SplitN(line, "=", 2)
+	if len(splitString) != 2 {
+		err = errors.New("Can't separate key from value")
+		return
+	}
+
+	key = strings.TrimSpace(splitString[0])
+	value = strings.Trim(splitString[1], " ")
+	return
+}
+
 func getEnv(key string, defaultValue string) string {
+	if value, ok := GetEnvFromFile(key); ok {
+		return value
+	}
+
 	if value, ok := os.LookupEnv(key); ok {
 		return value
 	}
