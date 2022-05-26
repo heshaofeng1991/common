@@ -18,9 +18,9 @@ import (
 
 var envMap map[string]string
 
-func GetEnvFromFile(key string) (string, bool) {
+func getEnvFromFile(key string) (string, bool) {
 	if len(envMap) == 0 {
-		if err := ReadEnvFile(".env"); err != nil {
+		if err := readEnvFile(".env"); err != nil {
 			return "", false
 		}
 	}
@@ -32,7 +32,7 @@ func GetEnvFromFile(key string) (string, bool) {
 	return "", false
 }
 
-func ReadEnvFile(filename string) error {
+func readEnvFile(filename string) error {
 	file, err := os.Open(filename)
 	if err != nil {
 		return err
@@ -86,7 +86,7 @@ func parseLine(line string) (key string, value string, err error) {
 }
 
 func getEnv(key string, defaultValue string) string {
-	if value, ok := GetEnvFromFile(key); ok {
+	if value, ok := getEnvFromFile(key); ok {
 		return value
 	}
 
@@ -115,3 +115,6 @@ var AwsSecretAccessKey = getEnv("AWS_SECRET_ACCESS_KEY", "KaUVGirpaB5f9r95ygEWyu
 
 var AwsWmsBackendQueueURL = getEnv("AWS_WMS_BACKEND_QUEUE_URL",
 	"https://sqs.ap-east-1.amazonaws.com/877499521494/dev-wms-backend")
+
+var AwsOmsQueueURL = getEnv("AWS_OMS_QUEUE_URL",
+	"https://sqs.ap-east-1.amazonaws.com/877499521494/dev-oms")
