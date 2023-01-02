@@ -12,9 +12,8 @@ package sentry
 import (
 	"time"
 
-	internal "github.com/NextSmartShip/common"
-	"github.com/NextSmartShip/common/util/env"
-	"github.com/getsentry/sentry-go"
+	internal "github.com/heshaofeng1991/common"
+	"github.com/heshaofeng1991/common/util/env"
 )
 
 // Init 初始化sentry.

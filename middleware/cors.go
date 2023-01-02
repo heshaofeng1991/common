@@ -12,8 +12,8 @@ package middleware
 import (
 	"net/http"
 
-	internal "github.com/NextSmartShip/common"
 	"github.com/go-chi/chi/v5"
+	internal "github.com/heshaofeng1991/common"
 	"github.com/rs/cors"
 )
 

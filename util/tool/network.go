@@ -20,7 +20,7 @@ import (
 	"strings"
 	"time"
 
-	svrErr "github.com/NextSmartShip/common/util/processerror"
+	svrErr "github.com/heshaofeng1991/common/util/processerror"
 	"github.com/pkg/errors"
 )
 

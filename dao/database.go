@@ -6,8 +6,8 @@ import (
 	"database/sql"
 
 	entsql "entgo.io/ent/dialect/sql"
-	"github.com/NextSmartShip/common/util/env"
-	ent "github.com/NextSmartShip/entgo/ent/gen"
+	"github.com/heshaofeng1991/common/util/env"
+	ent "github.com/heshaofeng1991/entgo/ent/gen"
 	"github.com/pkg/errors" //nolint:gci
 	log "github.com/sirupsen/logrus"
 

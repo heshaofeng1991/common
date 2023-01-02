@@ -12,8 +12,8 @@ package auth
 import (
 	"net/http"
 
-	internal "github.com/NextSmartShip/common"
-	"github.com/NextSmartShip/common/util/env"
+	internal "github.com/heshaofeng1991/common"
+	"github.com/heshaofeng1991/common/util/env"
 	"github.com/pkg/errors"
 )
 
@@ -34,20 +34,19 @@ func Authenticate(token string) (id int32, err error) {
 	return clm.ID, errors.Wrap(err, "")
 }
 
-
 // OMSAuthenticate 鉴权 JWT token.
 func OMSAuthenticate(token string) (id int64, tenantID int64, err error) {
-  // JWT Secret 存储在环境变量里面的密钥.
-  jwtSecret := env.JwtSecret
+	// JWT Secret 存储在环境变量里面的密钥.
+	jwtSecret := env.JwtSecret
 
-  if jwtSecret == "" {
-    jwtSecret = "wms"
-  }
+	if jwtSecret == "" {
+		jwtSecret = "wms"
+	}
 
-  clm, err := ParseOMSToken(token, jwtSecret)
-  if err != nil || clm == nil {
-    return 0, 0, internal.NewError("failed to parse token", http.StatusUnauthorized)
-  }
+	clm, err := ParseOMSToken(token, jwtSecret)
+	if err != nil || clm == nil {
+		return 0, 0, internal.NewError("failed to parse token", http.StatusUnauthorized)
+	}
 
-  return clm.ID, clm.TenantID, errors.Wrap(err, "")
+	return clm.ID, clm.TenantID, errors.Wrap(err, "")
 }

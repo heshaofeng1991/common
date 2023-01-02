@@ -10,10 +10,10 @@
 package aws
 
 import (
-	"github.com/NextSmartShip/common/util/env"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/heshaofeng1991/common/util/env"
 	"github.com/pkg/errors"
 )
 

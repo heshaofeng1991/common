@@ -13,12 +13,10 @@ import (
 	"net/http"
 	"strings"
 
-	jwtAuth "github.com/NextSmartShip/common/util/auth"
-	"github.com/NextSmartShip/common/util/env"
-	httperr "github.com/NextSmartShip/common/util/httpresponse"
-	"github.com/dgrijalva/jwt-go"
 	"github.com/dgrijalva/jwt-go/request"
-	"github.com/go-chi/chi/v5"
+	jwtAuth "github.com/heshaofeng1991/common/util/auth"
+	"github.com/heshaofeng1991/common/util/env"
+	httperr "github.com/heshaofeng1991/common/util/httpresponse"
 	"github.com/sirupsen/logrus"
 )
 

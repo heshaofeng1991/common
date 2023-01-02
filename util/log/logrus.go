@@ -15,8 +15,8 @@ import (
 	"os"
 	"time"
 
-	internal "github.com/NextSmartShip/common"
 	"github.com/go-chi/chi/v5/middleware"
+	internal "github.com/heshaofeng1991/common"
 	log "github.com/sirupsen/logrus"
 	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 )

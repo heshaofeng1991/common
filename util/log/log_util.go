@@ -3,8 +3,7 @@ package log
 import (
 	"runtime"
 
-	internal "github.com/NextSmartShip/common"
-	"github.com/getsentry/sentry-go"
+	internal "github.com/heshaofeng1991/common"
 	"github.com/sirupsen/logrus"
 )
 

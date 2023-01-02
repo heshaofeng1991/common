@@ -12,8 +12,7 @@ package auth
 import (
 	"net/http"
 
-	internal "github.com/NextSmartShip/common"
-	"github.com/dgrijalva/jwt-go"
+	internal "github.com/heshaofeng1991/common"
 	"github.com/pkg/errors"
 )
 
@@ -40,21 +39,21 @@ func ParseToken(tokenString, secret string) (*WMSClaims, error) {
 
 // ParseOMSToken 解析oms token.
 func ParseOMSToken(tokenString, secret string) (*OMSClaims, error) {
-  token, err := jwt.ParseWithClaims(tokenString, &OMSClaims{}, func(token *jwt.Token) (interface{}, error) {
-    if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-      return nil, internal.NewError("invalid signature method", http.StatusUnauthorized)
-    }
+	token, err := jwt.ParseWithClaims(tokenString, &OMSClaims{}, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, internal.NewError("invalid signature method", http.StatusUnauthorized)
+		}
 
-    return []byte(secret), nil
-  })
+		return []byte(secret), nil
+	})
 
-  if token == nil {
-    return nil, internal.NewError("parse token failed", http.StatusUnauthorized)
-  }
+	if token == nil {
+		return nil, internal.NewError("parse token failed", http.StatusUnauthorized)
+	}
 
-  if claims, ok := token.Claims.(*OMSClaims); ok && token.Valid {
-    return claims, nil
-  }
+	if claims, ok := token.Claims.(*OMSClaims); ok && token.Valid {
+		return claims, nil
+	}
 
-  return nil, errors.Wrap(err, "")
+	return nil, errors.Wrap(err, "")
 }
