@@ -1,6 +1,6 @@
 /*
 	@Author  johnny
-	@Author  johnny.he@nextsmartship.com
+	@Author  heshaofeng1991@gmail.com
 	@Version v1.0.0
 	@File    sns
 	@Date    2022/5/4 11:49
@@ -22,7 +22,7 @@ func (s Session) ListTopics() (*sns.ListTopicsOutput, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "")
 	}
-	
+
 	return result, nil
 }
 
@@ -33,7 +33,7 @@ func (s Session) ListSubscriptions() (*sns.ListSubscriptionsOutput, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "")
 	}
-	
+
 	return result, nil
 }
 
@@ -44,7 +44,7 @@ func (s Session) CreateSnsTopic(topic string) (*sns.CreateTopicOutput, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "")
 	}
-	
+
 	return result, nil
 }
 
@@ -55,7 +55,7 @@ func (s Session) DeleteSnsTopic(topic string) (*sns.DeleteTopicOutput, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "")
 	}
-	
+
 	return result, nil
 }
 
@@ -67,7 +67,7 @@ func (s Session) SnsPublish(message, topic string) (*sns.PublishOutput, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "")
 	}
-	
+
 	return result, nil
 }
 
@@ -81,7 +81,7 @@ func (s Session) SnsSubscribe(endpoint, protocol, topic string) (*sns.SubscribeO
 	if err != nil {
 		return nil, errors.Wrap(err, "")
 	}
-	
+
 	return result, nil
 }
 
@@ -92,6 +92,6 @@ func (s Session) SnsUnsubscribe(arn string) (*sns.UnsubscribeOutput, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "")
 	}
-	
+
 	return result, nil
 }

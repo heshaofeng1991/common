@@ -1,6 +1,6 @@
 /*
 	@Author  johnny
-	@Author  johnny.he@nextsmartship.com
+	@Author  heshaofeng1991@gmail.com
 	@Version v1.0.0
 	@File    httpresponse
 	@Date    2022/4/19 14:25
@@ -12,7 +12,7 @@ package httpresponse
 import (
 	"errors"
 	"net/http"
-	
+
 	"github.com/go-chi/render"
 	"github.com/sirupsen/logrus"
 )

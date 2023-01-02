@@ -1,6 +1,6 @@
 /*
 	@Author  johnny
-	@Author  johnny.he@nextsmartship.com
+	@Author  heshaofeng1991@gmail.com
 	@Version v1.0.0
 	@File    jwt_encode
 	@Date    2022/4/19 11:02
@@ -22,7 +22,7 @@ func (m WMSClaims) Valid() error {
 	return nil
 }
 
-func GenerateToken(userID int32,  secret string, method jwt.SigningMethod) (string, error) {
+func GenerateToken(userID int32, secret string, method jwt.SigningMethod) (string, error) {
 	claims := &WMSClaims{
 		ID: userID,
 	}
@@ -33,22 +33,21 @@ func GenerateToken(userID int32,  secret string, method jwt.SigningMethod) (stri
 }
 
 type OMSClaims struct {
-  ID int64 `json:"id"`
-  TenantID int64 `json:"tenant_id"`
+	ID       int64 `json:"id"`
+	TenantID int64 `json:"tenant_id"`
 }
 
-
 func (m OMSClaims) Valid() error {
-  return nil
+	return nil
 }
 
 func GenerateOMSToken(userID int64, tenantID int64, secret string, method jwt.SigningMethod) (string, error) {
-  claims := &OMSClaims{
-    ID: userID,
-    TenantID: tenantID,
-  }
+	claims := &OMSClaims{
+		ID:       userID,
+		TenantID: tenantID,
+	}
 
-  token, err := jwt.NewWithClaims(method, claims).SignedString([]byte(secret))
+	token, err := jwt.NewWithClaims(method, claims).SignedString([]byte(secret))
 
-  return token, errors.Wrap(err, "")
+	return token, errors.Wrap(err, "")
 }
